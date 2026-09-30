@@ -6,6 +6,7 @@ readonly PACKAGES=(
   docker
   docker-buildx
   docker-compose
+  curl
   fish
   git
   htop
@@ -47,4 +48,3 @@ fi
 echo
 echo "Bootstrap complete. Reboot once to activate Docker group membership:"
 echo "  sudo reboot"
-
