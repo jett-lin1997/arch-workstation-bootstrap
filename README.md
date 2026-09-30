@@ -18,7 +18,7 @@ Clone the repository and run the bootstrap as a regular user:
 ```bash
 git clone https://github.com/jett-lin1997/arch-workstation-bootstrap.git
 cd arch-workstation-bootstrap
-./bootstrap.sh
+bash bootstrap.sh
 ```
 
 Reboot once so the new Docker group membership applies:
@@ -31,7 +31,7 @@ Then verify the installation:
 
 ```bash
 cd arch-workstation-bootstrap
-./verify.sh
+bash verify.sh
 ```
 
 ## Notes
