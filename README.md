@@ -51,3 +51,32 @@ bash verify.sh
 - Arch Linux
 - EndeavourOS
 - Other Arch-based distributions using `pacman` and systemd
+
+## Optional web kiosk
+
+The optional kiosk tool starts a Docker Compose application during boot, waits
+for its web page to respond, and opens Google Chrome in full-screen kiosk mode
+after the desktop user logs in.
+
+Google Chrome is installed from the Arch User Repository through `yay`. Review
+the displayed PKGBUILD information before approving the installation.
+
+Example for a local Compose application:
+
+```bash
+cd arch-workstation-bootstrap
+
+bash tools/setup-web-kiosk.sh \
+  --url http://127.0.0.1:5000/ \
+  --compose-dir "$HOME/Projects/toolbox/toolbox-backend" \
+  --service-name toolbox
+```
+
+Reboot to test the complete startup sequence:
+
+```bash
+sudo reboot
+```
+
+The browser starts after the GNOME user session begins. Enable GNOME Automatic
+Login separately if the machine must reach the kiosk without user interaction.
