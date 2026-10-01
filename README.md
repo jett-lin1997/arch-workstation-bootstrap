@@ -39,8 +39,9 @@ bash verify.sh
 - The script uses `pacman --needed`, so it can be run repeatedly without
   reinstalling packages that are already present.
 - It enables Docker, OpenSSH server, and SMART monitoring at boot.
-- Fish is installed but is not made the default shell. This avoids surprising
-  compatibility issues with existing Bash-based administration scripts.
+- Fish is installed and configured as the invoking user's default login shell.
+  Existing terminal and SSH sessions keep their current shell until the user
+  logs in again or reboots.
 - Review your firewall and SSH authentication policy before exposing SSH to an
   untrusted network.
 - Do not commit passwords, access tokens, private SSH keys, `.env` files, or
