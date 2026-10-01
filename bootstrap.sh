@@ -45,6 +45,13 @@ if ! id -nG "$USER" | grep -qw docker; then
   sudo usermod -aG docker "$USER"
 fi
 
+fish_path=$(command -v fish)
+current_shell=$(getent passwd "$USER" | cut -d: -f7)
+if [[ $current_shell != "$fish_path" ]]; then
+  echo "Setting Fish as the default shell for $USER..."
+  sudo chsh -s "$fish_path" "$USER"
+fi
+
 echo
-echo "Bootstrap complete. Reboot once to activate Docker group membership:"
+echo "Bootstrap complete. Reboot once to activate Docker group membership and Fish:"
 echo "  sudo reboot"
