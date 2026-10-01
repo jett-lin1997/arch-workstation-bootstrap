@@ -44,6 +44,16 @@ for service_name in "${SERVICES[@]}"; do
 done
 
 echo
+expected_shell=$(command -v fish 2>/dev/null || true)
+current_shell=$(getent passwd "$USER" | cut -d: -f7)
+if [[ -n $expected_shell && $current_shell == "$expected_shell" ]]; then
+  echo "Default shell: Fish ($current_shell)"
+else
+  echo "Default shell: FAILED (current: $current_shell, expected: $expected_shell)"
+  failed=1
+fi
+
+echo
 if docker info >/dev/null 2>&1; then
   echo "Docker access: OK"
 else
@@ -52,4 +62,3 @@ else
 fi
 
 exit "$failed"
-
