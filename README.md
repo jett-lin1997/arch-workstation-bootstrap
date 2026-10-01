@@ -80,3 +80,6 @@ sudo reboot
 
 The browser starts after the GNOME user session begins. Enable GNOME Automatic
 Login separately if the machine must reach the kiosk without user interaction.
+
+The kiosk uses a dedicated Chrome profile and delays its launch for two seconds so the
+first-run welcome page and GNOME focus timing do not prevent full-screen mode.
