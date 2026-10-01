@@ -119,13 +119,26 @@ cat >"$launcher" <<EOF
 #!/usr/bin/env bash
 
 url='$url'
+profile_dir="\$HOME/.local/share/$service_name-kiosk-profile"
+
+mkdir -p "\$profile_dir"
+touch "\$profile_dir/First Run"
 
 for ((attempt = 1; attempt <= 60; attempt++)); do
   if curl --fail --silent --show-error --max-time 2 "\$url" >/dev/null; then
+    # Let the GNOME session finish restoring panels and windows before Chrome
+    # requests focus. A dedicated profile prevents an existing normal Chrome
+    # process from absorbing the kiosk launch flags.
+    sleep 2
     exec /usr/bin/google-chrome-stable \
+      --user-data-dir="\$profile_dir" \
       --kiosk \
+      --start-fullscreen \
       --no-first-run \
+      --no-default-browser-check \
+      --disable-fre \
       --disable-session-crashed-bubble \
+      --disable-infobars \
       "\$url"
   fi
   sleep 2
@@ -154,4 +167,3 @@ echo "Autostart file: $HOME/.config/autostart/$service_name-kiosk.desktop"
 echo
 echo "Reboot to test the complete startup sequence."
 echo "If GNOME shows a login screen, enable Automatic Login for this user first."
-
